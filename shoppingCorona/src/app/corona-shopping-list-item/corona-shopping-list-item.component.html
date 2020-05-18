@@ -1,0 +1,56 @@
+<style>
+  .ui.button {
+    cursor: pointer;
+    display: inline-block;
+    min-height: 1em;
+    outline: none;
+    border: none;
+    vertical-align: baseline;
+    background: #E0E1E2 none;
+    color: rgba(0, 0, 0, 0.6);
+    font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    margin: 0.6em 0.25em 0em 0em;
+    padding: 0.78571429em 1.5em 0.78571429em;
+    text-transform: none;
+    text-shadow: none;
+    font-weight: bold;
+    line-height: 1em;
+    font-style: normal;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 0.28571429rem;
+    box-shadow: 0px 0px 0px 1px transparent inset, 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  h3.ui.header{
+    font-size: 30px;
+  }
+  h6.ui.header{
+    font-size: 14px;
+    margin-top: -1%;
+    color: #5a6268;
+
+  }
+  .ui.horizontal.segments{
+    margin: 1%;
+
+  }
+</style>
+<div class="ui horizontal segments">
+<div class="ui raised segment">
+    <h3 class="ui header">Shopping list: {{list.name}}</h3>
+    <h6 class="ui header">List ID:{{list.id}}</h6>
+    <h6 class="ui header">To be bought until: {{list.due_date | date: 'longDate'}}</h6>
+    <h6 class="ui header">User ID: {{list.user_id}}</h6>
+    <h6 class="ui header">Completed: {{list.completed}}</h6>
+    <a class="ui small button" [routerLink]="list.id">List details</a>
+
+</div></div>
+
+
+

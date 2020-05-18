@@ -1,0 +1,61 @@
+<style>
+  .ui.card:first-child{
+    margin-top: 2%;
+    margin-left: 39%;
+  }
+
+</style>
+<div class="ui card" *ngIf="list">
+  <div class="content">
+    <div class="header">{{ list.name }}</div>
+    <div class="meta">
+      <span class="right floated time">Due date: {{ list.due_date | date:'dd.MM.yyyy'}}</span>
+      <span class="category">Max Sum: {{ list.final_sum }}€</span><br/>
+      <span class="category">User ID: {{ list.user_id }}</span>
+      <span class="category">Completed: {{list.completed}}</span>
+    </div>
+    <div class="description">
+      <h4>Items</h4>
+ <span *ngFor="let item of this.list.item; last as l">
+          {{ item.description }} -
+   {{ item.amount }}x -
+   {{ item.max_price }}€
+   <span *ngIf="!l">,<br/></span>
+</span>    </div>
+    <span class="category">Volunteer ID: {{ list.volunteer_id }}</span>
+  </div>
+  <div class="extra content">
+    <div class="right floated author">
+      <!--back-->
+      <a [routerLink]="['/lists']"
+         class="ui vertical animated tiny grey button" tabindex="0">
+        <div class="hidden content">back</div>
+        <div class="visible content">
+          <i class="angle left icon"></i>
+        </div></a>
+      <!--delete-->
+      <a *ngIf="!authenticationService.isVolunteer()"
+         (click)="removeList()"
+         class="ui vertical animated tiny red button" tabindex="0">
+        <div class="hidden content">delete list</div>
+        <div class="visible content">
+          <i class="trash alternate outline icon"></i>
+        </div></a>
+      <!--edit-->
+      <a *ngIf="authenticationService.isVolunteer() === false"
+         [routerLink]="['../../admin', list?.id]"
+         class="ui vertical animated tiny yellow button" tabindex="0">
+        <div class="hidden content">edit list</div>
+        <div class="visible content">
+          <i class="edit outline icon"></i>
+        </div></a>
+      <a *ngIf="authenticationService.isVolunteer()" (click)="takeOverList(list)"
+         class="ui vertical animated tiny orange button" tabindex="0">
+        <div class="hidden content">take over</div>
+        <div class="visible content">
+          <i class="magic icon"></i>
+        </div></a>
+    </div>
+  </div>
+</div>
+

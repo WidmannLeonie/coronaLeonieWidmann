@@ -1,0 +1,17 @@
+<div class="ui middle aligned selection list"  *ngIf="this.as.isVolunteer()">
+  <div *ngFor="let list of lists">
+    <a *ngIf="list.volunteer_id == this.as.getCurrentUserId()" class="item bs-corona-shopping-list-item"
+      [list]="list"
+      [routerLink]="list.id">
+    </a>
+  </div>
+</div>
+
+<div class="ui middle aligned selection list"  *ngIf="!this.as.isVolunteer()">
+  <div *ngFor="let list of lists">
+    <a *ngIf="list.user_id == this.as.getCurrentUserId()" class="item bs-corona-shopping-list-item"
+       [list]="list"
+       [routerLink]="list.id">
+    </a>
+  </div>
+</div>

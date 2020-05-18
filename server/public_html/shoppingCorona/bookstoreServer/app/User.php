@@ -1,0 +1,65 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+
+class User extends Authenticatable implements JWTSubject
+{
+    use Notifiable;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'email', 'password', 'id', 'isVolunteer'
+    ];
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+    protected function lists() : HasMany{
+        return $this->hasMany(Lists::class);
+    }
+    protected function comments() : BelongsTo{
+        return $this->belongsTo(Comments::class);
+    }
+    protected function addresses() : BelongsToMany{
+        return $this->belongsToMany(Address::class);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    /*JWT AUTH*/
+    public function getJWTIdentifier() {
+        return $this->getKey();
+    }
+    public function getJWTCustomClaims()
+    {
+        return ['user' => ['id' => $this->id, 'isVolunteer' => $this->isVolunteer, 'name' => $this->name]];
+    }
+
+}
+

@@ -1,0 +1,43 @@
+<h1>Shopping List Form</h1>
+<form class="ui form" [formGroup]="listForm" (ngSubmit)="submitForm()">
+  <input type="hidden" name="id" >
+  <div class="field">
+    <label>List name</label>
+    <input formControlName="name">
+    <div *ngIf="errors.name" class="ui negative message">{{errors.name}}</div>
+  </div>
+  <div class="field">
+    <label>Due date</label>
+    <input type="date" formControlName="due_date" value="{{listForm.value.due_date | date:'yyyy-MM-dd'}}">
+    <div *ngIf="errors.name" class="ui negative message">{{errors.due_date}}</div>
+  </div>
+  <div class="field">
+    <label>Max. Sum</label>
+    <input formControlName="final_sum">
+  </div>
+
+  <div class="field">
+    <label>Items</label>
+    <div formArrayName="item">
+      <div class="fields" *ngFor="let control of item?.controls; index as i; last as l" [formGroupName]= i>
+        <input type="hidden" name="id">
+        <div class="nine wide field">
+          <input formControlName="description" placeholder="Description...">
+        </div>
+        <div class="six wide field">
+          <input formControlName="amount" placeholder="amount of items">
+        </div>
+        <div class="six wide field">
+          <input formControlName="max_price" placeholder="max. price you want to spend on it">
+        </div>
+        <input type="hidden" name="completed" formControlName="completed">
+      </div>
+
+      <div class="one wide field">
+        <button  class="ui large button" type="button" (click)="addListItemControl()">+</button>
+      </div>
+
+    </div>
+  </div>
+    <button (click)="submitForm()" [routerLink]="'/lists'" type="button" class="ui button">Submit</button>
+</form>

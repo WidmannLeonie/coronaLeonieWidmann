@@ -1,0 +1,55 @@
+<style>
+  h1{
+    margin-left: 47%;
+    margin-top: 1%;
+  }
+  .ui.stacked.segment{
+    margin-left: 33.3%;
+    max-width: 450px;
+  }
+  .ui.teal.button{
+    background-color: #4f805d;
+  }
+  .leonie{
+    margin-left: 46.3%;
+    margin-top: 5%;
+  }
+</style>
+<div *ngIf="!isLoggedIn()">
+
+  <h1>Login</h1>
+  <form class="ui large form" [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="ui stacked segment">
+    <div class="field">
+      <label>E-mail</label>
+      <div class="ui left icon input">
+      <i class="user icon"></i>
+      <input type="email" id="email" formControlName="email" >
+
+      <div *ngIf="loginForm.get('email').invalid
+      && (loginForm.get('email').dirty || loginForm.get('email').touched) &&
+      loginForm.get('email').hasError('required')" class="ui negative message">
+        E-mail is required
+      </div>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <div class="ui left icon input">
+          <i class="lock icon"></i>
+        <input type="password" formControlName="password">
+        <div *ngIf="loginForm.get('password').invalid
+        && (loginForm.get('password').dirty ||
+        loginForm.get('password').touched)" class="ui negative message">
+          Password is required
+        </div>
+        </div>
+      </div>
+      <button type="submit" class="ui fluid large teal submit button" [disabled]="loginForm.invalid">Login</button>
+    </div>
+    </div>
+  </form>
+</div>
+<div *ngIf="isLoggedIn()" class="leonie">
+  <button type="button" class="ui button"
+          (click)="logout()">Logout</button>
+</div>

@@ -1,0 +1,79 @@
+<style>
+  .ui.menu:not(.vertical) .item > .button {
+    position: relative;
+    top: 0;
+    margin: -0.5em 0.2em -1.2em 0.2em;
+    padding-bottom: 0.78571429em;
+    padding-top: 0.78571429em;
+    font-size: 1em;
+  }
+.ui.inverted.segment, .ui.primary.inverted.segment {
+  max-height: 45vh;
+  background-color: #4f805d;
+}
+.ui.secondary.inverted.pointing.menu{
+  border-width: 0;
+}
+.ui.secondary.inverted.pointing.menu .active.item {
+  border-color: #FFFFFF;
+  color: #ffffff;
+}
+.ui.inverted.header {
+color: #FFFFFF;
+margin-top: 4%;
+}
+html, body {
+  max-height: 40vh;
+}
+.pusher{
+  background: #4f805d;
+  max-height: 20vh;
+}
+body.pushable > .pusher {
+  background: #4f805d;
+}
+  h1{
+    margin-top: -3%;
+  }
+</style>
+
+<body class="pushable">
+
+
+
+<!-- Page Contents -->
+<div class="pusher">
+  <div class="ui inverted vertical masthead center aligned segment">
+ <div class="ui {{isLoggedIn()?'four':'three'}} container">
+      <div class="ui large secondary inverted pointing menu">
+        <a routerLink="home" routerLinkActive="active" class="item">Home</a>
+        <a routerLink="lists" routerLinkActive="active" class="item">Shopping lists</a>
+        <div *ngIf="isLoggedIn()">
+          <a *ngIf="authenticationService.isVolunteer()" routerLink="openLists" routerLinkActive="active" class="item">Open Lists</a>
+        </div>
+        <a *ngIf="!authenticationService.isVolunteer()" routerLink="admin" routerLinkActive="active" class="item">Create new List</a>
+        <div class="right item">
+          <a *ngIf="isLoggedIn()" routerLink="admin" routerLinkActive="active" class="ui inverted button">Administration</a>
+          <a routerLink="login" routerLinkActive="active" class="ui inverted button">{{getLoginLabel()}}</a>
+        </div>
+
+      </div>
+    </div>
+    <div class="ui text container">
+      <h1 class="ui inverted header">
+        Corona Shopping
+      </h1>
+      <h3>Your grocery support</h3>
+    </div>
+
+
+
+  </div>
+
+</div>
+
+
+
+
+</body>
+<router-outlet></router-outlet>
